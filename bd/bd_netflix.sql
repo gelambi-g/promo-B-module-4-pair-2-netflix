@@ -26,6 +26,21 @@ CREATE TABLE Actors (
     birthday date 
 );
 
+CREATE TABLE movies_users (
+FK_movies INT not null,
+FK_users INT not null,
+movies_users INT primary key auto_increment not null,
+score decimal not null
+);
+select * FROM movies_users;
+
+CREATE TABLE movies_actors (
+FK_idMovies INT not null,
+FK_idActor INT not null,
+movies_actor INT auto_increment primary key not null
+);
+select * from movies_actors;
+
 INSERT INTO Movies (title, genre, image, category, year) values
 ('Pulp Fiction', 'Crimen', 'https://pics.filmaffinity.com/pulp_fiction-210382116-large.jpg', 'Top 10', 1994),
 ('LA vita è bella', 'Comedia', 'https://pics.filmaffinity.com/la_vita_e_bella-646167341-mmed.jpg', 'Top 10', 1996),
@@ -53,6 +68,28 @@ SELECT name, lastname FROM Actors WHERE country= 'Estados Unidos';
 SELECT * FROM Users WHERE plan_details = 'Standard';
 DELETE FROM Users WHERE name LIKE 'M%';
 
+alter table movies add column FK_users INT;
+describe movies;
+alter table movies add foreign key (FK_users) references users (iduser);
+
+alter table movies drop column FK_movies;
+
+select * from movies;
+
+alter table users add column FK_movies INT;
+describe users;
+alter table users add foreign key (FK_movies) references movies (idMovies);
+select * from users;
+
+alter table movies add column FK_actors INT;
+describe movies;
+alter table movies add foreign key (FK_actors) references actors (idActor);
+
+alter table actors add column FK_movies INT;
+describe actors;
+alter table actors add foreign key (FK_movies) references movies (idMovies);
+
+alter table movies drop column score;
 
 
 
