@@ -30,11 +30,7 @@ const fakeMovies = [
   },
 ];
 
-// init express aplication
-const serverPort = 4000;
-server.listen(serverPort, () => {
-  console.log(`Server listening at http://localhost:${serverPort}`);
-});
+
 
 //endpoints que devuelva las peliculas
 server.get('/movies', (req, res) => {
@@ -45,4 +41,10 @@ server.get('/movies', (req, res) => {
   } else {
     res.status(200).json({success: true, result: fakeMovies});
   }
+});
+
+// init express aplication
+const serverPort = 4000;
+server.listen(serverPort, () => {
+  console.log(`Server listening at http://localhost:${serverPort}`);
 });
