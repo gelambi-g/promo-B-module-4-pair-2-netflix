@@ -29,9 +29,7 @@
   "homepage": "https://github.com/Adalab/ejercicios-de-los-materiales#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
+    "express": "^4.21.0",
+    "mysql2": "^3.12.0"
   }
 }
