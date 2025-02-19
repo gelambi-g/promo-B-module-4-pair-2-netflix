@@ -58,7 +58,7 @@ server.get('/movies', async(req, res) => {
   const sqlSelect = 'SELECT * FROM movies';
 
   const [result] = await connection.query(sqlSelect);
-
+ console.log(result)
 connection.end();
 
 
@@ -75,5 +75,7 @@ connection.end();
       message: result,
     });
   }
+
+ 
 });
 
