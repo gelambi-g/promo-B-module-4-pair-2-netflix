@@ -1,20 +1,22 @@
 const express = require('express');
-const cors = require('cors');
 const mysql = require('mysql2/promise');
+const cors = require('cors');
 
 // create and config server
 const server = express();
 server.use(cors());
 server.use(express.json());
 
-
+// Conectar a la base de datos
 async function connectDB(){
   const conex = await mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'Armario123',
-    database: 'Netflix'
-  })
+    host: 'localhost',
+    user: 'admin',  // Usar 'admin' en lugar de 'root'
+    password: 'NuevaContraseña123',  // La nueva contraseña que configuraste
+    database: 'Netflix',
+    port: 3306
+  });
+  console.log('✅ Conectado a la base de datos');
   conex.connect();
   return conex;
 }
