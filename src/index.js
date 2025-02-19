@@ -13,7 +13,7 @@ async function connectDB(){
     host: 'localhost',
     user: 'admin',  // Usar 'admin' en lugar de 'root'
     password: 'NuevaContraseña123',  // La nueva contraseña que configuraste
-    database: 'Netflix',
+    database: 'netflix',
   });
   console.log('Conectado a la base de datos');
   conex.connect();
@@ -43,14 +43,6 @@ async function connectDB(){
 //     director: "Christopher Nolan",
 //   },
 // ];
-
-
-// init express aplication
-const serverPort = 4000;
-server.listen(serverPort, () => {
-  console.log(`Server listening at http://localhost:${serverPort}`);
-});
-
 
 
 //endpoints que devuelva las peliculas
