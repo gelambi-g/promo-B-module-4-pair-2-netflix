@@ -14,9 +14,8 @@ async function connectDB(){
     user: 'admin',  // Usar 'admin' en lugar de 'root'
     password: 'NuevaContraseña123',  // La nueva contraseña que configuraste
     database: 'Netflix',
-    port: 3306
   });
-  console.log('✅ Conectado a la base de datos');
+  console.log('Conectado a la base de datos');
   conex.connect();
   return conex;
 }
@@ -79,5 +78,11 @@ connection.end();
   }
 
  
+});
+
+// Iniciar el servidor
+const PORT = 4000;
+server.listen(PORT, () => {
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
 
