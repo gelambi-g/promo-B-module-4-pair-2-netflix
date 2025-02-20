@@ -11,10 +11,10 @@ require('dotenv').config();
 // Conectar a la base de datos
 async function connectDB(){
   const conex = await mysql.createConnection({
-    host: process.env.HOSTBD,
-    user: process.env.USERBD,
-    password: process.env.PASSBD,
-    database: process.env.DATABASE,
+    host: process.env.HOSTDB,
+    user: process.env.USERDB,
+    password: process.env.PASSDB,
+    database: process.env.DATADB,
   });
   console.log('Conectado a la base de datos');
   conex.connect();
@@ -50,9 +50,10 @@ async function connectDB(){
 server.get('/movies', async(req, res) => {
   const connection = await connectDB();
   const sqlSelect = 'SELECT * FROM movies';
+  console.log(sqlSelect);
 
   const [result] = await connection.query(sqlSelect);
- console.log(result)
+
 connection.end();
 
 
