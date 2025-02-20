@@ -15,7 +15,6 @@ async function connectDB(){
     user: process.env.USERBD,
     password: process.env.PASSBD,
     database: process.env.DATABASE,
-    port: process.env.PORTBD,
   });
   console.log('Conectado a la base de datos');
   conex.connect();
