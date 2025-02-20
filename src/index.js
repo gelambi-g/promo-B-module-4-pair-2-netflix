@@ -6,14 +6,16 @@ const cors = require('cors');
 const server = express();
 server.use(cors());
 server.use(express.json());
+require('dotenv').config();
 
 // Conectar a la base de datos
 async function connectDB(){
   const conex = await mysql.createConnection({
-    host: 'localhost',
-    user: 'admin',  // Usar 'admin' en lugar de 'root'
-    password: 'NuevaContraseña123',  // La nueva contraseña que configuraste
-    database: 'netflix',
+    host: process.env.HOSTBD,
+    user: process.env.USERBD,
+    password: process.env.PASSBD,
+    database: process.env.DATABASE,
+    port: process.env.PORTBD,
   });
   console.log('Conectado a la base de datos');
   conex.connect();
@@ -73,8 +75,8 @@ connection.end();
 });
 
 // Iniciar el servidor
-const PORT = 4000;
+const PORT = process.env.PORT;
 server.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(` Servidor corriendo en http://localhost:${PORT}`);
 });
 
