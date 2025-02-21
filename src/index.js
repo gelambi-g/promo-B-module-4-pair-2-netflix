@@ -50,28 +50,27 @@ async function connectDB(){
 //endpoints que devuelva las peliculas
 server.get('/movies', async(req, res) => {
   const connection = await connectDB();
-  const sqlSelect = 'SELECT * FROM movies';
+  //4.8 peticiones con parametros
+  
+  // console.log(sqlSelect);
+  const {genre} = req.query
+  let sqlSelect = ''
 
-  const [result] = await connection.query(sqlSelect);
- console.log(result)
+  if(genre === ''){
+    sqlSelect = 'SELECT * FROM movies ';
+  }else{
+    sqlSelect = 'SELECT * FROM movies WHERE genre = ?';
+  }
+  
+  const [result] = await connection.query(sqlSelect, [genre]);
+
+
 connection.end();
 
-
-  if (result.length === 0){
-    res
-      .status(404)
-      .json({
-        status: 'error',
-        message: 'No se ha encontrado el recurso solicitado',
-      });
-  } else {
     res.status(200).json({
       status: 'success',
-      message: result,
+      movies: result,
     });
-  }
-
- 
 });
 
 // Iniciar el servidor
