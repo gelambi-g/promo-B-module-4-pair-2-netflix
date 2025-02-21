@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');  
 
 // create and config server
 const server = express();
@@ -11,10 +12,10 @@ require('dotenv').config();
 // Conectar a la base de datos
 async function connectDB(){
   const conex = await mysql.createConnection({
-    host: process.env.HOSTBD,
-    user: process.env.USERBD,
-    password: process.env.PASSBD,
-    database: process.env.DATABASE,
+    host: process.env.HOSTDB,
+    user: process.env.USERDB,
+    password: process.env.PASSDB,
+    database: process.env.DATADB,
   });
   console.log('Conectado a la base de datos');
   conex.connect();

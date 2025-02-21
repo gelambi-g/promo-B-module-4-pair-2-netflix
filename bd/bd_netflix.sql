@@ -1,4 +1,4 @@
-CREATE DATABASE Netflix;
+
 USE Netflix;
 CREATE TABLE movies (
 	idMovies INT auto_increment primary key not null,
