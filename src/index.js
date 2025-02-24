@@ -6,6 +6,8 @@ const cors = require('cors');
 const server = express();
 server.use(cors());
 server.use(express.json());
+//plantillas ejs
+server.set('view engine', 'ejs');
 require('dotenv').config();
 
 // Conectar a la base de datos
@@ -71,6 +73,32 @@ connection.end();
       movies: result,
     });
 });
+
+//24feb renderizar motor de plantillas
+
+
+//24Feb plantillas
+//endpoint
+server.get('/movie/:movieId', async (req, res) => { 
+  const {movieId} = req.params;
+
+  const connection = await connectDB();
+  const sql = 'SELECT * FROM movies WHERE idMovies = ?'
+  const [result] = await connection.query(sql, [movieId])
+ 
+  const foundMovie = result[0]
+  console.log(foundMovie)
+
+  connection.end();
+
+  res.render('movie', {movie: foundMovie})
+
+ })
+
+
+
+
+
 
 // Iniciar el servidor
 const PORT = process.env.PORT;
