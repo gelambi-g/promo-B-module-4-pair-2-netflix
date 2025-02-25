@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors'); 
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 
 // create and config server
 const server = express();
@@ -75,7 +77,33 @@ server.get('/movie/:movieId', async (req, res) => {
  })
 
 
+// endpoint singup
+server.post("/signup", async (req, res) => {
+  
+  //conectar a la base de datos
+  const connection = await connectDB();
 
+  //recibir los datos del ususario
+  const {email, password} = req.body;
+
+  //comprobar si el email existe
+  const selectEmail = 'SELECT email From users WHERE email = ?';
+  const [emailResult] = await connection.query(selectEmail, [email]);
+
+  //Hacer un condicional para verificar la longitud del array
+  if (emailResult.length === 0){
+    //antes de hacer el insert encrptar la contraseña
+    const passwordHashed = await bcrypt.hash(password, 10);
+    //insertar el usuario
+    const insertUser =
+      'INSERT INTO users (email, password) value (?,?)';
+    const [result] = await connection.query(insertUser, [email, passwordHashed]);
+    res.status(201).json({success: true, id: result.insertId });
+  }else{
+    //Si el ususario ya existe responder con un mensaje de error
+    res.status(200).json({success:false, menssage: 'Usuario ya existe'});
+  }
+});
 
 
 
@@ -85,3 +113,4 @@ server.listen(PORT, () => {
   console.log(` Servidor corriendo en http://localhost:${PORT}`);
 });
 
+server.use(express.static('./css'))
